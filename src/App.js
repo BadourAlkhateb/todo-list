@@ -5,10 +5,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { 
   faCircleCheck, faPen, faTrashCan 
 } from '@fortawesome/free-solid-svg-icons'
+import useStyles from './App.styles';
 
-import './App.css';
 
 function App() {
+  const classes = useStyles();
   const [toDo, setToDo] = useState(() => {
     const localData = localStorage.getItem('toDo');
     return localData ? JSON.parse(localData) : [];
@@ -66,10 +67,10 @@ function App() {
   }
 
   return (
-    <Container size={700} className="App">
-      <Text size="xl" weight={700} style={{ marginTop: '2em' }}>Add Your Tasks</Text>
+    <Container size={700} className={classes.AppContainer}>
+      <Text size="xl" weight={700} className={classes.AppHeader} style={{ marginTop: '2em' }}>Add Your Tasks</Text>
 
-      <div style={{ marginTop: '2em', marginBottom: '2em' }}>
+      <div className={classes.AppContainer}>
         <TextInput
           label={updateData ? 'Update task' : 'New task'}
           placeholder="Type here"
@@ -90,13 +91,13 @@ function App() {
       {toDo && toDo
         .sort((a, b) => a.id > b.id ? 1 : -1)
         .map( (task, index) => (
-          <Paper padding="md" style={{ marginBottom: '1em' }} key={task.id}>
+          <Paper padding="md" className={classes.taskStyle} key={task.id}>
             <Text style={{ textDecoration: task.status ? 'line-through' : 'none' }}>
               <span className="taskNumber">{index + 1}</span> 
               <span className="taskText">{task.title}</span>
             </Text>
 
-            <div className="iconsWrap">
+            <div className={classes.iconsWrap}>
               <Button color="blue" onClick={() => markDone(task.id)} title="Completed / Not Completed">
                 <FontAwesomeIcon icon={faCircleCheck} />
               </Button>
