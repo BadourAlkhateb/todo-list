@@ -32,8 +32,11 @@ function App() {
   }
 
   const deleteTask = (id) => {
+    let confirmation = window.confirm("Are you sure you want to delete this task?");
+    if(confirmation) {
     let newTasks = toDo.filter((task) => task.id !== id);
     setToDo(newTasks);
+  }
   }
 
   const markDone = (id) => {
